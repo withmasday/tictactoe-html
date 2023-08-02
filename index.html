@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        td {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            cursor: pointer;
+            color: black;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+            display: flex;
+        }
+
+        .mt-5 {
+            margin-top: 5rem;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        h1 {
+            display: block;
+            text-align: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+    <main class="justify-content-center mt-5">
+        <div class="content">
+            <h1>Simple Tic Tac Toe</h1>
+            <div class="text-center mt-2">
+                <span>Play Now : </span>
+                <span id="playnow"></span>
+            </div>
+            <table class="mt-2">
+                <tr>
+                    <td tictactoe="null" id="tictactoe-1-1" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-1-2" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-1-3" onclick="handleTicTacToe(this)"></td>
+                </tr>
+                <tr>
+                    <td tictactoe="null" id="tictactoe-2-1" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-2-2" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-2-3" onclick="handleTicTacToe(this)"></td>
+                </tr>
+                <tr>
+                    <td tictactoe="null" id="tictactoe-3-1" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-3-2" onclick="handleTicTacToe(this)"></td>
+                    <td tictactoe="null" id="tictactoe-3-3" onclick="handleTicTacToe(this)"></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <script type="text/javascript">
+        let playNow = 'X';
+        let playnow_el = document.getElementById('playnow');
+        playnow_el.innerText = 'X';
+
+        function getWinner(params) {
+            let tictactoe11 = document.getElementById('tictactoe-1-1').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe12 = document.getElementById('tictactoe-1-2').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe13 = document.getElementById('tictactoe-1-3').getAttribute('tictactoe') == params ? true : false;
+
+            let tictactoe21 = document.getElementById('tictactoe-2-1').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe22 = document.getElementById('tictactoe-2-2').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe23 = document.getElementById('tictactoe-2-3').getAttribute('tictactoe') == params ? true : false;
+
+            let tictactoe31 = document.getElementById('tictactoe-3-1').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe32 = document.getElementById('tictactoe-3-2').getAttribute('tictactoe') == params ? true : false;
+            let tictactoe33 = document.getElementById('tictactoe-3-3').getAttribute('tictactoe') == params ? true : false;
+
+            // Horizontal Win Case
+            if (tictactoe11 && tictactoe12 && tictactoe13 ||
+                tictactoe21 && tictactoe22 && tictactoe23 ||
+                tictactoe31 && tictactoe32 && tictactoe33) {
+                alert('Winner ' + params);
+                return true
+            }
+
+            // Veritcal Win Case
+            if (tictactoe11 && tictactoe21 && tictactoe31 ||
+                tictactoe12 && tictactoe22 && tictactoe32 ||
+                tictactoe13 && tictactoe23 && tictactoe33) {
+                alert('Winner ' + params);
+                return true
+            }
+
+            // Diagonal Win Case
+            if (tictactoe11 && tictactoe22 && tictactoe33 ||
+                tictactoe13 && tictactoe22 && tictactoe31) {
+                alert('Winner ' + params);
+                return true
+            }
+        }
+
+        function handleTicTacToe(params) {
+            if (params.getAttribute('tictactoe') == "null") {
+                params.setAttribute('tictactoe', playNow);
+                params.innerText = playNow;
+                if (getWinner(playNow)) {
+                    playNow = playNow == 'X' ? 'X' : 'O';
+                    playnow_el.innerText = 'The Winner Is ' + playNow;
+                } else {
+                    playNow = playNow == 'X' ? 'O' : 'X';
+                    playnow_el.innerText = playNow;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
